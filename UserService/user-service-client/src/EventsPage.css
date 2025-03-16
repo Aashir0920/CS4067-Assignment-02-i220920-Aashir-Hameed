@@ -1,0 +1,122 @@
+/* EventsPage.css */
+.app-container {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: white;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header Section */
+.header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #ff4b5c;
+  text-align: center;
+  padding: 1.5rem;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(255, 75, 92, 0.4);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 10px rgba(255, 75, 92, 0.8);
+}
+
+/* Events Section */
+.events-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.events-container h2 {
+  color: #ffcc00;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 5px rgba(255, 204, 0, 0.7);
+}
+
+/* Event Cards */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.event-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(255, 75, 92, 0.3);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(255, 75, 92, 0.6);
+}
+
+.event-card h3 {
+  color: #ff4b5c;
+  margin-top: 0;
+  font-size: 1.6rem;
+}
+
+.event-date, .event-tickets {
+  color: #ffcc00;
+  margin: 0.5rem 0;
+}
+
+/* Book Button */
+.book-button {
+  background-color: #ff4b5c;
+  color: white;
+  border: none;
+  padding: 0.7rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(255, 75, 92, 0.4);
+}
+
+.book-button:hover {
+  background-color: #ff6b81;
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(255, 75, 92, 0.6);
+}
+
+/* No Events Message */
+.no-events {
+  text-align: center;
+  color: #ffcc00;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  text-shadow: 1px 1px 5px rgba(255, 204, 0, 0.7);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .events-container {
+      padding: 1rem;
+  }
+
+  .events-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .event-card {
+      padding: 1rem;
+  }
+}
