@@ -114,11 +114,6 @@ cd ../BookingService && npm start
 cd ../NotificationService && npm start
 ```
 
-### 🐳 Running with Docker (Optional)
-```sh
-docker-compose up --build
-```
-
 ---
 
 ## 📬 Message Queue (RabbitMQ)
@@ -132,6 +127,3 @@ http://localhost:15672
 (Default: `guest/guest`)
 
 ---
-
-## 📌 Contributing
-Feel free to fork and contribute! 🚀
