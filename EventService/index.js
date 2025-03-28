@@ -102,8 +102,8 @@ mongoose.connection.once('open', async () => {
   const count = await Event.countDocuments();
   if (count === 0) {
     await Event.insertMany([
-      { title: 'Tech Conference', date: new Date('2025-04-01'), availableTickets: 100, location: 'CHQ', createdBy: 'user123' },
-      { title: 'Music Festival', date: new Date('2025-05-15'), availableTickets: 50, location: 'TSB', createdBy: 'user123' },
+      { title: 'Tech Conference', date: new Date('2025-09-09'), availableTickets: 100, location: 'CHQ', createdBy: 'aashir' },
+      { title: 'Music Festival', date: new Date('2025-09-15'), availableTickets: 50, location: 'TSB', createdBy: 'aashir' },
     ]);
     console.log('Sample events added with specific IDs');
   }

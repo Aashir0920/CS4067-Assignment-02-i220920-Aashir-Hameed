@@ -20,16 +20,13 @@ const EventsPage = () => {
     const { state } = location;
     console.log('Location state:', state);
     const fetchEventsAndUsers = async () => {
-      //try {
+      try {
         const response = await axios.get('http://localhost:5001/events');
-        try{
+
         
         console.log('Fetched events:', response.data);
         setEvents(response.data);
-        }catch (error) {
-          console.error('❌ Error fetching events:', error);
-          setMessage(`Error fetching events: ${error.response?.data?.message || error.message}`);
-        }
+
         // Pre-fetch event titles
         const titles = {};
         response.data.forEach(event => titles[event._id] = event.title);
@@ -49,10 +46,10 @@ const EventsPage = () => {
           }
         }
         setUserNames(names);
-      // } catch (error) {
-      //   console.error('Error fetching events:', error);
-      //   setMessage(`Error fetching events: ${error.message}`);
-      // }
+      } catch (error) {
+        console.error('Error fetching events:', error);
+        setMessage(`Error fetching events: ${error.message}`);
+      }
     };
     fetchEventsAndUsers();
   }, [location]);
@@ -173,7 +170,7 @@ const EventsPage = () => {
         )}
         {message && <p>{message}</p>}
         {showBookings && (
-          <div className="bookings-section" style={{ marginTop: '20px', padding: '10px', background: '#f8f9fa' }}>
+          <div className="bookings-section" style={{ marginTop: '20px', padding: '10px', background: '#1a1a1a' }}>
             <h3>My Bookings</h3>
             {bookings.length > 0 ? (
               <ul>
