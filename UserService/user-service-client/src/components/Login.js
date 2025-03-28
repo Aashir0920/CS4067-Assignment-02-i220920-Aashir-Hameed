@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     console.log('Login attempt:', { email, password }); // Debug log
     try {
-      const response = await axios.post('http://localhost:5000/login', { email, password });
+      const response = await axios.post('http://localhost:5001/login', { email, password });
       setMessage(response.data.message);
       const { events, userId, userEmail } = response.data;
       localStorage.setItem('userId', userId);

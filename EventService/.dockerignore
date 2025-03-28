@@ -1,0 +1,6 @@
+node_modules
+event-service-client
+.git
+Dockerfile
+.dockerignore
+.env

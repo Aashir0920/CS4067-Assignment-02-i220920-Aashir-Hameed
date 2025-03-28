@@ -12,7 +12,7 @@ const Register = () => {
     e.preventDefault();
     console.log('Register attempt:', { name, email, password }); // Debug log
     try {
-      const response = await axios.post('http://localhost:5000/register', { name, email, password });
+      const response = await axios.post('http://localhost:5001/register', { name, email, password });
       setMessage(response.data.message);
     } catch (error) {
       console.error('Register error:', error.response?.data || error);

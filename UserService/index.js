@@ -61,7 +61,7 @@ app.post('/login', async (req, res) => {
 
   // Fetch events from EventService after successful login
   try {
-    const eventsResponse = await axios.get('http://localhost:5001/events');
+    const eventsResponse = await axios.get('http://localhost:5002/events');
     const events = eventsResponse.data;
 
     res.status(200).json({
@@ -94,7 +94,7 @@ app.get('/', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`UserService is running on port ${PORT}`);
 });

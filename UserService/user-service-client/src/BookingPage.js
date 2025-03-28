@@ -15,7 +15,7 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchEventTitle = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/events/${eventId}`);
+        const response = await axios.get(`http://localhost:5002/events/${eventId}`);
         localStorage.setItem(`eventTitle_${eventId}`, response.data.title || 'Unknown Event');
       } catch (error) {
         console.error('Error fetching event title:', error);
@@ -28,7 +28,7 @@ const BookingPage = () => {
   const handleBook = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5002/bookings', { userId, eventId, tickets, cardInfo, userEmail });
+      const response = await axios.post('http://localhost:5003/bookings', { userId, eventId, tickets, cardInfo, userEmail });
       setMessage(response.data.message);
       if (response.data.details) {
         const eventTitle = localStorage.getItem(`eventTitle_${eventId}`) || 'Unknown';

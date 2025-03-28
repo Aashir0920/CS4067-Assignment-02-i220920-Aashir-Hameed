@@ -43,7 +43,7 @@ app.post('/bookings', async (req, res) => {
     // Check event availability with timeout from MFLP-10
     let availableTickets;
     try {
-      const availabilityResponse = await axios.get(`http://localhost:5001/events/${eventId}/availability`, {
+      const availabilityResponse = await axios.get(`http://localhost:5002/events/${eventId}/availability`, {
         timeout: 5000,
       });
       availableTickets = availabilityResponse.data.availableTickets;
@@ -72,7 +72,7 @@ app.post('/bookings', async (req, res) => {
     // Update event availability with timeout and logging from MFLP-10
     try {
       const newTickets = availableTickets - tickets;
-      const updateResponse = await axios.patch(`http://localhost:5001/events/${eventId}/availability`, {
+      const updateResponse = await axios.patch(`http://localhost:5002/events/${eventId}/availability`, {
         availableTickets: newTickets,
       }, {
         timeout: 5000,
@@ -143,7 +143,7 @@ const mockPaymentValidation = (cardInfo) => {
 };
 
 // Start the server
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5003;
 app.listen(PORT, () => {
   console.log(`BookingService is running on port ${PORT}`);
 });

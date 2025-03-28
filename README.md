@@ -50,23 +50,23 @@ This project is a **Node.js + MongoDB** microservices-based event booking system
 
 ## 🔌 API Endpoints
 
-### 🧑 User Service (Port: 5000)
+### 🧑 User Service (Port: 5001)
 - `POST /register` - Register a new user
 - `POST /login` - User login
 - `GET /users/:userId` - Get user details
 
-### 🎟 Event Service (Port: 5001)
+### 🎟 Event Service (Port: 5002)
 - `GET /events` - Fetch all events
 - `POST /events` - Create an event
 - `GET /events/:eventId` - Get event details
 - `PATCH /events/:eventId/availability` - Update ticket availability
 
-### 📅 Booking Service (Port: 5002)
+### 📅 Booking Service (Port: 5003)
 - `POST /bookings` - Book tickets
 - `GET /bookings/user/:userId` - Get user bookings
 - `GET /bookings/:bookingId` - Get booking details
 
-### 📩 Notification Service (Port: 5003)
+### 📩 Notification Service (Port: 5004)
 - **Listens to RabbitMQ for booking confirmations**
 - Sends email/SMS notifications
 

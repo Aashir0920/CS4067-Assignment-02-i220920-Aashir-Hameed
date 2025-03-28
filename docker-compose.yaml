@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - app-network
+
+  user-service:
+    build: ./UserService
+    container_name: User-service
+    restart: always
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/user-service
+      PORT: 5001
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  event-service:
+    build: ./EventService
+    container_name: Event-service
+    restart: always
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/event-service
+      PORT: 5002
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  booking-service:
+    build: ./BookingService
+    container_name: Booking-service
+    restart: always
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/booking-service
+      PORT: 5003
+      RABBITMQ_URL: amqp://rabbitmq
+    ports:
+      - "5003:5003"
+    depends_on:
+      - mongodb
+      - rabbitmq
+    networks:
+      - app-network
+
+  notification-service:
+    build: ./NotificationService
+    container_name: Notification-service
+    restart: always
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/notification-service
+      PORT: 5004
+      RABBITMQ_URL: amqp://rabbitmq
+    ports:
+      - "5004:5004"
+    depends_on:
+      - mongodb
+      - rabbitmq
+    networks:
+      - app-network
+
+  user-client-service:
+    build: ./UserService/user-service-client
+    container_name: user-service-client
+    restart: always
+    environment:
+      REACT_APP_API_URL: http://user-service:5001
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - user-service
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
