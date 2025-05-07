@@ -22,29 +22,30 @@ A Dockerized microservices-based Event Booking Platform with User, Event, Bookin
 CS4067-Assignment-02-i220920-Aashir-Hameed/
 │
 ├── UserService/
-│ ├── Dockerfile
-│ ├── index.js
-│ ├── models/
-│ └── .env
+│   ├── index.js
+│   ├── models/
+│   ├── Dockerfile
+│   └── .env
 │
 ├── EventService/
-│ ├── Dockerfile
-│ ├── index.js
-│ └── .env
+│   ├── index.js
+│   ├── Dockerfile
+│   └── .env
 │
 ├── BookingService/
-│ ├── Dockerfile
-│ ├── index.js
-│ └── .env
+│   ├── index.js
+│   ├── models/
+│   ├── Dockerfile
+│   └── .env
 │
 ├── NotificationService/
-│ ├── Dockerfile
-│ ├── index.js
-│ └── .env
+│   ├── index.js
+│   ├── Dockerfile
+│   └── .env
 │
 ├── UserService/user-service-client/
-│ ├── Dockerfile
-│ └── .env
+│   ├── Dockerfile
+│   └── .env
 │
 └── docker-compose.yaml
 
