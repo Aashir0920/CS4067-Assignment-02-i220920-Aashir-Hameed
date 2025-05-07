@@ -1,129 +1,106 @@
-# CS4067-Assgt-EventBooking-i220920-Aashir-Hameed
-
-# Event Booking Microservices System
+# Event Booking Platform – Dockerized Microservices
 
 ## 🚀 Overview
-This project is a **Node.js + MongoDB** microservices-based event booking system with **RabbitMQ** for asynchronous messaging. It includes:
+A Dockerized microservices-based Event Booking Platform with User, Event, Booking, and Notification services, plus a React frontend.
 
-1. **User Service**: Manages user registration and authentication.
-2. **Event Service**: Handles event creation and ticket availability.
-3. **Booking Service**: Manages ticket reservations and payments.
-4. **Notification Service**: Sends email/SMS notifications via RabbitMQ.
+## 🛠️ Components
+| Service              | Port  |
+|----------------------|-------|
+| User Service         | 5001  |
+| Event Service        | 5002  |
+| Booking Service      | 5003  |
+| Notification Service | 5004  |
+| Frontend (React)     | 3000  |
+| RabbitMQ Management  | 15673 |
 
----
+## 📋 Prerequisites
+- Docker Desktop (running)
+- Node.js (for local dev/testing)
+- MongoDB running locally (`mongod` on port 27017)
 
-## 🏗 Architecture
-```
-           +---------------------+       
-           |    User Service     |       
-           |  (Node.js + MongoDB) |       
-           +---------------------+       
-                     |                          
-       REST API      |                          
-     (User Books)    ↓                          
-                     |                          
-           +---------------------+       
-           |  Booking Service    |       
-           | (Node.js + MongoDB) |       
-           |  + RabbitMQ         |       
-           +---------------------+       
-              |             |              
-   REST API   |   RabbitMQ Event           
- (Check Avail)|  (Booking Confirmation)   
-              |             ↓              
-              |    +--------------------+  
-              |    | Notification Service |  
-              |    |  (Node.js + MongoDB) |  
-              |    +--------------------+  
-              |             ↑             
-              |    Sends Email/SMS        
-              |                           
- REST API     |                           
- (Get Event)  ↓                           
-       +---------------------+       
-       |   Event Service     |       
-       | (Node.js + MongoDB) |       
-       +---------------------+       
-```
+## 🏗️ Project Structure
+CS4067-Assignment-02-i220920-Aashir-Hameed/
+│
+├── UserService/
+│ ├── Dockerfile
+│ ├── index.js
+│ ├── models/
+│ └── .env
+│
+├── EventService/
+│ ├── Dockerfile
+│ ├── index.js
+│ └── .env
+│
+├── BookingService/
+│ ├── Dockerfile
+│ ├── index.js
+│ └── .env
+│
+├── NotificationService/
+│ ├── Dockerfile
+│ ├── index.js
+│ └── .env
+│
+├── UserService/user-service-client/
+│ ├── Dockerfile
+│ └── .env
+│
+└── docker-compose.yaml
 
----
 
-## 🔌 API Endpoints
+## 🐳 Docker Setup
 
-### 🧑 User Service (Port: 5001)
-- `POST /register` - Register a new user
-- `POST /login` - User login
-- `GET /users/:userId` - Get user details
+### Sample Dockerfile (Node.js Service)
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5001
+CMD ["node", "index.js"]
+Sample Dockerfile (React Frontend)
+dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]
+⚙️ Environment Variables
+Example .env (EventService)
+MONGODB_URI=mongodb://host.docker.internal:27017/event-service
+PORT=5002
+RABBITMQ_URL=amqp://host.docker.internal
+🚀 Deployment
+Start MongoDB locally:
 
-### 🎟 Event Service (Port: 5002)
-- `GET /events` - Fetch all events
-- `POST /events` - Create an event
-- `GET /events/:eventId` - Get event details
-- `PATCH /events/:eventId/availability` - Update ticket availability
+mongod
+Build and run all services:
 
-### 📅 Booking Service (Port: 5003)
-- `POST /bookings` - Book tickets
-- `GET /bookings/user/:userId` - Get user bookings
-- `GET /bookings/:bookingId` - Get booking details
+docker compose up -d --build
+🔌 Access Points
+Frontend: http://localhost:3000
 
-### 📩 Notification Service (Port: 5004)
-- **Listens to RabbitMQ for booking confirmations**
-- Sends email/SMS notifications
+User API: http://localhost:5001
 
----
+Event API: http://localhost:5002
 
-## ⚙ Setup Guide
+Booking API: http://localhost:5003
 
-### 🛠 Prerequisites
-- **Node.js** (`>=14.x`)
-- **MongoDB** (`>=5.x`)
-- **RabbitMQ**
-- **Docker** (optional for containerized setup)
+Notification API: http://localhost:5004
 
-### 📌 Installation
-Clone the repo and install dependencies for each service:
-```sh
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-cd YOUR_REPO
-```
+RabbitMQ UI: http://localhost:15673 (guest/guest)
 
-Install dependencies:
-```sh
-cd UserService && npm install
-cd ../EventService && npm install
-cd ../BookingService && npm install
-cd ../NotificationService && npm install
-```
+🛑 Shutdown
+docker compose down
+🐞 Troubleshooting
+Check container logs: docker logs <container_name>
 
-### 🚀 Running Services
-1️⃣ **Start MongoDB**:
-```sh
-mongod --dbpath /data/db
-```
+Verify MongoDB is running: mongodb://localhost:27017/
 
-2️⃣ **Start RabbitMQ**:
-```sh
-rabbitmq-server
-```
+Ensure host.docker.internal resolves correctly
 
-3️⃣ **Run Microservices**:
-```sh
-cd UserService && npm start
-cd ../EventService && npm start
-cd ../BookingService && npm start
-cd ../NotificationService && npm start
-```
-
----
-
-## 📬 Message Queue (RabbitMQ)
-- **Booking Service** publishes booking confirmations.
-- **Notification Service** listens and sends email/SMS notifications.
-
-You can monitor RabbitMQ UI at:
-```
-http://localhost:15672
-```
-(Default: `guest/guest`)
-
----
+Check all services are running: docker ps
