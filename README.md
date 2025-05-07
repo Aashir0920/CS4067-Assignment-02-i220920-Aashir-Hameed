@@ -70,6 +70,8 @@ RUN npm install
 COPY . .
 EXPOSE 3000
 CMD ["npm", "start"]
+
+
 ⚙️ Environment Variables
 Example .env (EventService)
 MONGODB_URI=mongodb://host.docker.internal:27017/event-service
